@@ -28,6 +28,20 @@ namespace PuttingTheDnDInTDD
         public int Armor { get; set; }
         public int HitPoints { get; set; }
 
+        public bool IsDead
+        {
+            get
+            {
+                bool ded =false;
+
+                if (HitPoints <= 0)
+                {
+                    ded = true;
+                }
+                return ded;
+            }
+        }
+
         public Character()
         {
             Armor = 10;
@@ -37,9 +51,10 @@ namespace PuttingTheDnDInTDD
         public void Attack(int roll)
         {
             if (roll >= Armor)
-            {
                 HitPoints--;
-            }
+
+            if (roll == 20)
+                HitPoints--;
         }
     }
 }

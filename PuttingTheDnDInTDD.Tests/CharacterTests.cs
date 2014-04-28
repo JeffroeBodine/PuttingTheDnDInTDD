@@ -67,5 +67,31 @@ namespace PuttingTheDnDInTDD.Tests
             c.Attack(roll);
             Assert.AreEqual(5, c.HitPoints);
         }
+
+        [Test]
+        public void CriticalHitTakesAway2HitPoints()
+        {
+            var c = new Character();
+            c.HitPoints = 5;
+            c.Attack(20);
+            Assert.AreEqual(3, c.HitPoints);
+        }
+
+        [Test]
+        public void CharacterIsDeadIfHitPointsEqual0([Values(0, -1)] int input)
+        {
+            var c = new Character();
+            c.HitPoints = input;
+            Assert.AreEqual(true, c.IsDead);
+        }
+
+        [Test]
+        public void CharacterIsAliveIfHitPointsGreaterThan0([Values(1, 2)] int input)
+        {
+            var c = new Character();
+            c.HitPoints = input;
+            Assert.AreEqual(false, c.IsDead);
+        }
+
     }
 }
