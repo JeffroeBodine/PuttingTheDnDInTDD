@@ -45,30 +45,69 @@ namespace PuttingTheDnDInTDD.Tests
         }
 
         [Test]
-        public void CharacterCantHitWithRollOf9()
+        public void CharacterCantHitWWhenRollIsLessThanDefaultArmor()
         {
             var roll = 9;
+            var armor = 10;
             var c = new Character();
-            c.Attack(roll);
-            Assert.AreEqual(10, c.Armor);
+            c.Armor = armor;
+            var hit = c.Attack(roll);
+            Assert.AreEqual(false, hit);
         }
         
         [Test]
-        public void CharacterCanHitWithRollOf10()
+        public void CharacterCanHitWhenRollIsEqualToDefaultArmor()
         {
             var roll = 10;
+            var armor = 10;
             var c = new Character();
-            c.Attack(roll);
-            Assert.AreEqual(5, c.Armor);
+            c.Armor = armor;
+            var hit = c.Attack(roll);
+            Assert.AreEqual(true, hit);
         }
 
         [Test]
-        public void CharacterCanHitWithRollOf11()
+        public void CharacterCanHitWhenRollIsGreaterThanDefaultArmor()
         {
             var roll = 11;
+            var armor = 10;
             var c = new Character();
-            c.Attack(roll);
-            Assert.AreEqual(5, c.Armor);
+            c.Armor = armor;
+            var hit = c.Attack(roll);
+            Assert.AreEqual(true, hit);
+        }
+
+        [Test]
+        public void CharacterCantHitWWhenRollIsLessThanArmor()
+        {
+            var roll = 19;
+            var armor = 20;
+            var c = new Character();
+            c.Armor = armor;
+            var hit = c.Attack(roll);
+            Assert.AreEqual(false, hit);
+        }
+
+        [Test]
+        public void CharacterCanHitWhenRollIsEqualToArmor()
+        {
+            var roll = 1;
+            var armor = 1;
+            var c = new Character();
+            c.Armor = armor;
+            var hit = c.Attack(roll);
+            Assert.AreEqual(true, hit);
+        }
+
+        [Test]
+        public void CharacterCanHitWhenRollIsGreaterThanArmor()
+        {
+            var roll = 2;
+            var armor = 1;
+            var c = new Character();
+            c.Armor = armor;
+            var hit = c.Attack(roll);
+            Assert.AreEqual(true, hit);
         }
     }
 }
