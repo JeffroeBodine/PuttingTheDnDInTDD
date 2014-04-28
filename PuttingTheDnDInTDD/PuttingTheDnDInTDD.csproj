@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Ability.cs" />
     <Compile Include="Character.cs" />
+    <Compile Include="Die.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

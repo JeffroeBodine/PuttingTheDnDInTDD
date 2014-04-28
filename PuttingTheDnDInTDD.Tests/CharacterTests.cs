@@ -8,6 +8,7 @@ namespace PuttingTheDnDInTDD.Tests
     public class CharacterTests
     {
         private Character c;
+        private readonly DieTests _dieTests = new DieTests();
 
         [SetUp]
         public void BeforeEach()
@@ -128,24 +129,6 @@ namespace PuttingTheDnDInTDD.Tests
             }
         }
 
-
-
-        [Test]
-        public void AbilityIs10ThenModifierIs0()
-        {
-            var a = new Ability("TestAbility-BaDumBum");
-            a.Value = 10;
-            Assert.AreEqual(0, a.Modifier);
-        }
-
-        [Test]
-        public void AbilityIs11ThenModifierIs0()
-        {
-            var a = new Ability("TestAbility-BaDumBum");
-            a.Value = 11;
-            Assert.AreEqual(0, a.Modifier);
-        }
-
         [TestCase(1, -5)]
         [TestCase(8, -1)]
         [TestCase(9, -1)]
@@ -161,6 +144,5 @@ namespace PuttingTheDnDInTDD.Tests
 
             Assert.AreEqual(modifier, a.Modifier);
         }
-
     }
 }
