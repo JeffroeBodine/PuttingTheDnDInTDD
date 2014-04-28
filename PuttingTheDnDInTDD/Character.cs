@@ -27,7 +27,7 @@ namespace PuttingTheDnDInTDD
         }
         public int Armor { get; set; }
         public int HitPoints { get; set; }
-        public Abilities Abilities { get; set; }
+        public List<Ability> Abilities { get; set; }
 
         public bool IsDead
         {
@@ -41,7 +41,15 @@ namespace PuttingTheDnDInTDD
         {
             Armor = 10;
             HitPoints = 5;
-            Abilities = new Abilities();
+            Abilities = new List<Ability>
+                {
+                    new Ability("Strength"),
+                    new Ability("Dexterity"),
+                    new Ability("Constitution"),
+                    new Ability("Wisdom"),
+                    new Ability("Intelligence"),
+                    new Ability("Charisma")
+                };
         }
 
         public void Attack(int roll)

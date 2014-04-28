@@ -17,12 +17,10 @@ namespace PuttingTheDnDInTDD.Tests
 
         public void SetAllAbilityValues(int val)
         {
-            c.Abilities.Strength = val;
-            c.Abilities.Dexterity = val;
-            c.Abilities.Constitution = val;
-            c.Abilities.Wisdom = val;
-            c.Abilities.Intelligence = val;
-            c.Abilities.Charisma = val;
+            foreach (var ability in c.Abilities)
+            {
+                ability.Value = val;
+            }
         }
 
         [Test]
@@ -122,22 +120,12 @@ namespace PuttingTheDnDInTDD.Tests
             AssertAbilityValues(1);
         }
 
-
-
-
-
-
-
-
         public void AssertAbilityValues(int expected)
         {
-            Assert.AreEqual(expected, c.Abilities.Strength);
-            Assert.AreEqual(expected, c.Abilities.Dexterity);
-            Assert.AreEqual(expected, c.Abilities.Constitution);
-            Assert.AreEqual(expected, c.Abilities.Wisdom);
-            Assert.AreEqual(expected, c.Abilities.Intelligence);
-            Assert.AreEqual(expected, c.Abilities.Charisma);
+            foreach (var ability in c.Abilities)
+            {
+                Assert.AreEqual(expected, ability.Value);  
+            }
         }
-
     }
 }
