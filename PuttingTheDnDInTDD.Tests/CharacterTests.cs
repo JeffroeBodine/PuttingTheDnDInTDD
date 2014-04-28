@@ -51,9 +51,10 @@ namespace PuttingTheDnDInTDD.Tests
         public void CharacterCanHitWhenRollGreaterThanOrEqualToArmor(int roll, int armor)
         {
             var c = new Character();
+            c.HitPoints = 5;
             c.Armor = armor;
             var hit = c.Attack(roll);
-            Assert.AreEqual(true, hit);
+            Assert.AreEqual(4, c.HitPoints);
         }
 
         [TestCase(9, 10)]
@@ -61,9 +62,10 @@ namespace PuttingTheDnDInTDD.Tests
         public void CharacterCantHitWhenRollLessThanArmor(int roll, int armor)
         {
             var c = new Character();
+            c.HitPoints = 5;
             c.Armor = armor;
             var hit = c.Attack(roll);
-            Assert.AreEqual(false, hit);
+            Assert.AreEqual(5, c.HitPoints);
         }
     }
 }

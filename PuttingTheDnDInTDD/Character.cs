@@ -37,7 +37,11 @@ namespace PuttingTheDnDInTDD
         public bool Attack(int roll)
         {
             if (roll >= Armor)
+            {
+                HitPoints--;
                 return true;
+            }
+           
 
             return false;
         }
