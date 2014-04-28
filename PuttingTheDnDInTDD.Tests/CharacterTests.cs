@@ -127,5 +127,40 @@ namespace PuttingTheDnDInTDD.Tests
                 Assert.AreEqual(expected, ability.Value);  
             }
         }
+
+
+
+        [Test]
+        public void AbilityIs10ThenModifierIs0()
+        {
+            var a = new Ability("TestAbility-BaDumBum");
+            a.Value = 10;
+            Assert.AreEqual(0, a.Modifier);
+        }
+
+        [Test]
+        public void AbilityIs11ThenModifierIs0()
+        {
+            var a = new Ability("TestAbility-BaDumBum");
+            a.Value = 11;
+            Assert.AreEqual(0, a.Modifier);
+        }
+
+        [TestCase(1, -5)]
+        [TestCase(8, -1)]
+        [TestCase(9, -1)]
+        [TestCase(10, 0)]
+        [TestCase(11, 0)]
+        [TestCase(12, 1)]
+        [TestCase(13, 1)]
+        [TestCase(20, 5)]
+        public void AbilityValueSetsModifier(int value, int modifier)
+        {
+            var a = new Ability("TestAbility-BaDumBum");
+            a.Value = value;
+
+            Assert.AreEqual(modifier, a.Modifier);
+        }
+
     }
 }
