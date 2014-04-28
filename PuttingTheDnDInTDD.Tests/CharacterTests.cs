@@ -9,13 +9,13 @@ namespace PuttingTheDnDInTDD.Tests
         [Test]
         public void CanGetAndSetCharacterName()
         {
-            var c = new Character(); 
-            c.Name = "Some Name" ;
+            var c = new Character();
+            c.Name = "Some Name";
             Assert.AreEqual("Some Name", c.Name);
         }
 
         [Test]
-        public void CanGetAndSetKnownAlignmentValues( [Values("Good", "Evil", "Neutral")] string input)
+        public void CanGetAndSetKnownAlignmentValues([Values("Good", "Evil", "Neutral")] string input)
         {
             var c = new Character();
             c.Alignment = input;
@@ -54,7 +54,7 @@ namespace PuttingTheDnDInTDD.Tests
             var hit = c.Attack(roll);
             Assert.AreEqual(false, hit);
         }
-        
+
         [Test]
         public void CharacterCanHitWhenRollIsEqualToDefaultArmor()
         {
@@ -108,6 +108,28 @@ namespace PuttingTheDnDInTDD.Tests
             c.Armor = armor;
             var hit = c.Attack(roll);
             Assert.AreEqual(true, hit);
+        }
+
+        [TestCase(1, 1)]
+        [TestCase(2, 1)]
+        [TestCase(10, 10)]
+        [TestCase(11, 10)]
+        public void CharacterCanHitWhenRollGreaterThanOrEqualToArmor(int roll, int armor)
+        {
+            var c = new Character();
+            c.Armor = armor;
+            var hit = c.Attack(roll);
+            Assert.AreEqual(true, hit);
+        }
+
+        [TestCase(9, 10)]
+        [TestCase(19, 20)]
+        public void CharacterCantHitWhenRollLessThanArmor(int roll, int armor)
+        {
+            var c = new Character();
+            c.Armor = armor;
+            var hit = c.Attack(roll);
+            Assert.AreEqual(false, hit);
         }
     }
 }
