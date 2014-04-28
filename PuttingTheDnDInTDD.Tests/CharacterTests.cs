@@ -65,7 +65,7 @@ namespace PuttingTheDnDInTDD.Tests
         {
             c.HitPoints = 5;
             c.Armor = armor;
-            c.Attack(roll);
+            c.Attack(roll, false, 0);
             Assert.AreEqual(4, c.HitPoints);
         }
 
@@ -75,7 +75,7 @@ namespace PuttingTheDnDInTDD.Tests
         {
             c.HitPoints = 5;
             c.Armor = armor;
-            c.Attack(roll);
+            c.Attack(roll, false, 0);
             Assert.AreEqual(5, c.HitPoints);
         }
 
@@ -83,7 +83,7 @@ namespace PuttingTheDnDInTDD.Tests
         public void CriticalHitTakesAway2HitPoints()
         {
             c.HitPoints = 5;
-            c.Attack(20);
+            c.Attack(20, true, 0);
             Assert.AreEqual(3, c.HitPoints);
         }
 
@@ -125,7 +125,7 @@ namespace PuttingTheDnDInTDD.Tests
         {
             foreach (var ability in c.Abilities)
             {
-                Assert.AreEqual(expected, ability.Value);  
+                Assert.AreEqual(expected, ability.Value);
             }
         }
 
@@ -143,6 +143,44 @@ namespace PuttingTheDnDInTDD.Tests
             a.Value = value;
 
             Assert.AreEqual(modifier, a.Modifier);
+        }
+
+        [TestCase(10, 0, 4)]
+        [TestCase(25, 5, -1)]
+        public void StrengthModifierAddedToAttack(int modifiedRoll, int strengthModifier, int expected)
+        {
+            c.HitPoints = 5;
+            c.Armor = int.MinValue;
+            c.Attack(modifiedRoll, false, strengthModifier);
+            Assert.AreEqual(expected, c.HitPoints);
+        }
+
+        [TestCase(25, 5, -7)]
+        public void DoubledStrengthModifierAddedToAttackWhenRoll20(int modifiedRoll, int strengthModifier, int expected)
+        {
+            c.HitPoints = 5;
+            c.Armor = int.MinValue;
+            c.Attack(modifiedRoll, true, strengthModifier);
+            Assert.AreEqual(expected, c.HitPoints);
+        }
+
+        [TestCase(-4, -5, 4)]
+        [TestCase(0, -1, 4)]
+        public void MinimumDamageIs1(int modifiedRoll, int strengthModifier, int expected)
+        {
+            c.HitPoints = 5;
+            c.Armor = int.MinValue;
+            c.Attack(modifiedRoll, false, strengthModifier);
+            Assert.AreEqual(expected, c.HitPoints);
+        }
+
+        [TestCase(15, -5, 4)]
+        public void MinimumDamageIs1WithCriticalHit(int modifiedRoll, int strengthModifier, int expected)
+        {
+            c.HitPoints = 5;
+            c.Armor = int.MinValue;
+            c.Attack(modifiedRoll, true, strengthModifier);
+            Assert.AreEqual(expected, c.HitPoints);
         }
     }
 }

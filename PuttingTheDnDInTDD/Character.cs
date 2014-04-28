@@ -52,13 +52,22 @@ namespace PuttingTheDnDInTDD
                 };
         }
 
-        public void Attack(int roll)
+        public void Attack(int modifiedRoll, bool natural20, int strengthModifier)
         {
-            if (roll >= Armor)
-                HitPoints--;
+            if (modifiedRoll >= Armor && natural20)
+            {
+                if (strengthModifier < 0)
+                    HitPoints--;
+                else
+                {
+                    HitPoints = HitPoints - 1 - ((strengthModifier > 0) ? (strengthModifier) : 0);
+                    HitPoints = HitPoints - 1 - ((strengthModifier > 0) ? (strengthModifier) : 0);
+                }
+               
+            }
+            else if (modifiedRoll >= Armor)
+                HitPoints = HitPoints - 1 - ((strengthModifier > 0) ? strengthModifier : 0);
 
-            if (roll == 20)
-                HitPoints--;
         }
     }
 }
