@@ -93,5 +93,17 @@ namespace PuttingTheDnDInTDD.Tests
             Assert.AreEqual(false, c.IsDead);
         }
 
+        [Test]
+        public void CharacterHasAbilitiesWithDefaults()
+        {
+            var c = new Character();
+            Assert.AreEqual(10, c.Strength);
+            Assert.AreEqual(10, c.Dexterity);
+            Assert.AreEqual(10, c.Constitution);
+            Assert.AreEqual(10, c.Wisdom);
+            Assert.AreEqual(10, c.Intelligence);
+            Assert.AreEqual(10, c.Charisma);
+        }
+
     }
 }

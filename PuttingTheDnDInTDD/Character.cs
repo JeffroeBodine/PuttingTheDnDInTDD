@@ -28,6 +28,13 @@ namespace PuttingTheDnDInTDD
         public int Armor { get; set; }
         public int HitPoints { get; set; }
 
+        public int Strength { get; set; }
+        public int Dexterity { get; set; }
+        public int Constitution { get; set; }
+        public int Wisdom { get; set; }
+        public int Intelligence { get; set; }
+        public int Charisma { get; set; }
+
         public bool IsDead
         {
             get
@@ -46,6 +53,14 @@ namespace PuttingTheDnDInTDD
         {
             Armor = 10;
             HitPoints = 5;
+
+            Strength = 10;
+            Dexterity = 10;
+            Constitution = 10;
+            Wisdom = 10;
+            Intelligence = 10;
+            Charisma = 10;
+
         }
 
         public void Attack(int roll)
