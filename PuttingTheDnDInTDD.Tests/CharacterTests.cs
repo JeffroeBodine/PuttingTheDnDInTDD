@@ -97,12 +97,13 @@ namespace PuttingTheDnDInTDD.Tests
         public void CharacterHasAbilitiesWithDefaults()
         {
             var c = new Character();
-            Assert.AreEqual(10, c.Strength);
-            Assert.AreEqual(10, c.Dexterity);
-            Assert.AreEqual(10, c.Constitution);
-            Assert.AreEqual(10, c.Wisdom);
-            Assert.AreEqual(10, c.Intelligence);
-            Assert.AreEqual(10, c.Charisma);
+            int expected = 10;
+            Assert.AreEqual(expected, c.Strength);
+            Assert.AreEqual(expected, c.Dexterity);
+            Assert.AreEqual(expected, c.Constitution);
+            Assert.AreEqual(expected, c.Wisdom);
+            Assert.AreEqual(expected, c.Intelligence);
+            Assert.AreEqual(expected, c.Charisma);
         }
 
     }
