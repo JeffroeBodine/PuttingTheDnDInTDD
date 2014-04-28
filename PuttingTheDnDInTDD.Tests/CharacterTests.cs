@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace PuttingTheDnDInTDD.Tests
@@ -6,10 +7,27 @@ namespace PuttingTheDnDInTDD.Tests
     [TestFixture]
     public class CharacterTests
     {
+        private Character c;
+
+        [SetUp]
+        public void BeforeEach()
+        {
+            c = new Character();
+        }
+
+        public void SetAllAbilityValues(int val)
+        {
+            c.Abilities.Strength = val;
+            c.Abilities.Dexterity = val;
+            c.Abilities.Constitution = val;
+            c.Abilities.Wisdom = val;
+            c.Abilities.Intelligence = val;
+            c.Abilities.Charisma = val;
+        }
+
         [Test]
         public void CanGetAndSetCharacterName()
         {
-            var c = new Character();
             c.Name = "Some Name";
             Assert.AreEqual("Some Name", c.Name);
         }
@@ -17,7 +35,6 @@ namespace PuttingTheDnDInTDD.Tests
         [Test]
         public void CanGetAndSetKnownAlignmentValues([Values("Good", "Evil", "Neutral")] string input)
         {
-            var c = new Character();
             c.Alignment = input;
             Assert.AreEqual(input, c.Alignment);
         }
@@ -26,21 +43,18 @@ namespace PuttingTheDnDInTDD.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void UnknownAlignmentValueThrowsException()
         {
-            var c = new Character();
             c.Alignment = "Awesome";
         }
 
         [Test]
         public void CharacterArmorDefaultsTo10()
         {
-            var c = new Character();
             Assert.AreEqual(10, c.Armor);
         }
 
         [Test]
         public void CharacterHitPointsDefaultsTo5()
         {
-            var c = new Character();
             Assert.AreEqual(5, c.HitPoints);
         }
 
@@ -50,7 +64,6 @@ namespace PuttingTheDnDInTDD.Tests
         [TestCase(11, 10)]
         public void CharacterCanHitWhenRollGreaterThanOrEqualToArmor(int roll, int armor)
         {
-            var c = new Character();
             c.HitPoints = 5;
             c.Armor = armor;
             c.Attack(roll);
@@ -61,7 +74,6 @@ namespace PuttingTheDnDInTDD.Tests
         [TestCase(19, 20)]
         public void CharacterCantHitWhenRollLessThanArmor(int roll, int armor)
         {
-            var c = new Character();
             c.HitPoints = 5;
             c.Armor = armor;
             c.Attack(roll);
@@ -71,7 +83,6 @@ namespace PuttingTheDnDInTDD.Tests
         [Test]
         public void CriticalHitTakesAway2HitPoints()
         {
-            var c = new Character();
             c.HitPoints = 5;
             c.Attack(20);
             Assert.AreEqual(3, c.HitPoints);
@@ -80,7 +91,6 @@ namespace PuttingTheDnDInTDD.Tests
         [Test]
         public void CharacterIsDeadIfHitPointsEqual0([Values(0, -1)] int input)
         {
-            var c = new Character();
             c.HitPoints = input;
             Assert.AreEqual(true, c.IsDead);
         }
@@ -88,7 +98,6 @@ namespace PuttingTheDnDInTDD.Tests
         [Test]
         public void CharacterIsAliveIfHitPointsGreaterThan0([Values(1, 2)] int input)
         {
-            var c = new Character();
             c.HitPoints = input;
             Assert.AreEqual(false, c.IsDead);
         }
@@ -96,14 +105,38 @@ namespace PuttingTheDnDInTDD.Tests
         [Test]
         public void CharacterHasAbilitiesWithDefaults()
         {
-            var c = new Character();
-            int expected = 10;
-            Assert.AreEqual(expected, c.Strength);
-            Assert.AreEqual(expected, c.Dexterity);
-            Assert.AreEqual(expected, c.Constitution);
-            Assert.AreEqual(expected, c.Wisdom);
-            Assert.AreEqual(expected, c.Intelligence);
-            Assert.AreEqual(expected, c.Charisma);
+            AssertAbilityValues(10);
+        }
+
+        [Test]
+        public void CharacterAbilitiesCantBeGreaterThan20()
+        {
+            SetAllAbilityValues(21);
+            AssertAbilityValues(20);
+        }
+
+        [Test]
+        public void CharacterAbilitiesCantBeLessThan1()
+        {
+            SetAllAbilityValues(0);
+            AssertAbilityValues(1);
+        }
+
+
+
+
+
+
+
+
+        public void AssertAbilityValues(int expected)
+        {
+            Assert.AreEqual(expected, c.Abilities.Strength);
+            Assert.AreEqual(expected, c.Abilities.Dexterity);
+            Assert.AreEqual(expected, c.Abilities.Constitution);
+            Assert.AreEqual(expected, c.Abilities.Wisdom);
+            Assert.AreEqual(expected, c.Abilities.Intelligence);
+            Assert.AreEqual(expected, c.Abilities.Charisma);
         }
 
     }
