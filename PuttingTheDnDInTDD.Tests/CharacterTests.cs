@@ -53,7 +53,7 @@ namespace PuttingTheDnDInTDD.Tests
             var c = new Character();
             c.HitPoints = 5;
             c.Armor = armor;
-            var hit = c.Attack(roll);
+            c.Attack(roll);
             Assert.AreEqual(4, c.HitPoints);
         }
 
@@ -64,7 +64,7 @@ namespace PuttingTheDnDInTDD.Tests
             var c = new Character();
             c.HitPoints = 5;
             c.Armor = armor;
-            var hit = c.Attack(roll);
+            c.Attack(roll);
             Assert.AreEqual(5, c.HitPoints);
         }
     }

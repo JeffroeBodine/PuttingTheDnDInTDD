@@ -34,16 +34,12 @@ namespace PuttingTheDnDInTDD
             HitPoints = 5;
         }
 
-        public bool Attack(int roll)
+        public void Attack(int roll)
         {
             if (roll >= Armor)
             {
                 HitPoints--;
-                return true;
             }
-           
-
-            return false;
         }
     }
 }
